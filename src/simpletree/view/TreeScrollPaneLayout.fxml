@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fx:id="treeScrollPane" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpletree.TreeScrollPaneLayoutController">
+	<content>
+		<AnchorPane fx:id="treeAnchorPane">
+			<children>
+				<ComboBox prefWidth="150.0" promptText="Year/Month"
+					xmlns:fx="http://javafx.com/fxml" />
+			</children>
+		</AnchorPane>
+	</content>
+</ScrollPane>
