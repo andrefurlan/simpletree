@@ -5,9 +5,16 @@
 
 package simpletree;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.prefs.Preferences;
+
 import javax.jws.Oneway;
 
+import com.thoughtworks.xstream.XStream;
+
 import simpletree.model.KPI;
+import simpletree.util.FileUtil;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -35,7 +43,7 @@ public class Main extends Application {
 	private BorderPane rootLayout;
 	private ScrollPane treeScrollPane;
 	private ObservableList<KPI> kpiData = FXCollections.observableArrayList();
-	
+	private Stage primaryStage;
 
 	/**
 	 * Constructor for the Main Class. Adds the data <br>
@@ -73,6 +81,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		//TODO Implement tests.
+		this.primaryStage = primaryStage;
+		
 		try {
 
 			//TODO create helper function to load and define controller for all views in the main class
@@ -152,7 +162,29 @@ public class Main extends Application {
 		//XXX Implement tests.
 		return rootLayout;
 	}
+	
+	/**
+	 * Purpose <br>
+	 * REQUIRES:  <br>
+	 * MODIFIES:  <br>
+	 * EFFECTS:   <br>
+	 */
+	public Stage getPrimaryStage() {
+		//XXX Implement tests.
+		return primaryStage;
+	}
 
+	
+	/**
+	 * Purpose <br>
+	 * REQUIRES:  <br>
+	 * MODIFIES:  <br>
+	 * EFFECTS:   <br>
+	 */
+	public void setPrimaryStage(Stage primaryStage) {
+		//XXX Implement tests.
+		this.primaryStage = primaryStage;
+	}
 	/**
 	 * Purpose <br>
 	 * REQUIRES:  <br>
@@ -207,4 +239,93 @@ public class Main extends Application {
 		launch(args);
 	}
 
+	/**
+	 * Loads KPI data from the specified file. The current KPI data will
+	 * be replaced.
+	 * 
+	 * @param file
+	 */
+	@SuppressWarnings("unchecked")
+	public void loadKPIDataFromFile(File file) {
+	  XStream xstream = new XStream();
+	  xstream.alias("kpi", KPI.class);
+
+	  try {
+	    String xml = FileUtil.readFile(file);
+
+	    ArrayList<KPI> kpiList = (ArrayList<KPI>) xstream.fromXML(xml);
+
+	    kpiData.clear();
+	    kpiData.addAll(kpiList);
+
+	    setKPIFilePath(file);
+	  } catch (Exception e) { // catches ANY exception
+	    Dialogs.showErrorDialog(primaryStage,
+	        "Could not load data from file:\n" + file.getPath(),
+	        "Could not load data", "Error", e);
+	  }
+	}
+
+	/**
+	 * Saves the current KPI data to the specified file.
+	 * 
+	 * @param file
+	 */
+	public void saveKPIDataToFile(File file) {
+	  XStream xstream = new XStream();
+	  xstream.alias("kpi", KPI.class);
+
+	  // Convert ObservableList to a normal ArrayList
+	  ArrayList<KPI> kpiList = new ArrayList<>(kpiData);
+
+	  String xml = xstream.toXML(kpiList);
+	  try {
+	    FileUtil.saveFile(xml, file);
+
+	    setKPIFilePath(file);
+	  } catch (Exception e) { // catches ANY exception
+	    Dialogs.showErrorDialog(primaryStage,
+	        "Could not save data to file:\n" + file.getPath(),
+	        "Could not save data", "Error", e);
+	  }
+	}
+	
+	/**
+	 * Returns the kpi file preference, i.e. the file that was last opened.
+	 * The preference is read from the OS specific registry. If no such
+	 * preference can be found, null is returned.
+	 * 
+	 * @return
+	 */
+	public File getKPIFilePath() {
+	  Preferences prefs = Preferences.userNodeForPackage(Main.class);
+	  String filePath = prefs.get("filePath", null);
+	  if (filePath != null) {
+	    return new File(filePath);
+	  } else {
+	    return null;
+	  }
+	}
+
+	/**
+	 * Sets the file path of the currently loaded file.
+	 * The path is persisted in the OS specific registry.
+	 * 
+	 * @param file the file or null to remove the path
+	 */
+	public void setKPIFilePath(File file) {
+	  Preferences prefs = Preferences.userNodeForPackage(Main.class);
+	  if (file != null) {
+	    prefs.put("filePath", file.getPath());
+
+	    // Update the stage title
+	    primaryStage.setTitle("Simple Tree Deployment- " + file.getName());
+	  } else {
+	    prefs.remove("filePath");
+
+	    // Update the stage title
+	    primaryStage.setTitle("Simple Tree Deployment");
+	  }
+	}
+	
 }

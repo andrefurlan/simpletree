@@ -8,10 +8,6 @@
 	xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpletree.TreeScrollPaneLayoutController">
 	<content>
 		<AnchorPane fx:id="treeAnchorPane">
-			<children>
-				<ComboBox prefWidth="150.0" promptText="Year/Month"
-					xmlns:fx="http://javafx.com/fxml" />
-			</children>
 		</AnchorPane>
 	</content>
 </ScrollPane>

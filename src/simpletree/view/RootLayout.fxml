@@ -17,7 +17,13 @@
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
+						<MenuItem mnemonicParsing="false" onAction="#handleImportData" text="Import Data" />
+					</items>
+								<items>
+						<MenuItem mnemonicParsing="false" onAction="#handleSaveData" text="Save Data" />
+					</items>
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Edit">
@@ -27,7 +33,7 @@
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">
 					<items>
-						<MenuItem mnemonicParsing="false" text="About" />
+						<MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
 					</items>
 				</Menu>
 			</menus>
