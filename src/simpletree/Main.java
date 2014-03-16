@@ -6,6 +6,7 @@
 package simpletree;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
@@ -13,6 +14,8 @@ import javax.jws.Oneway;
 
 import com.thoughtworks.xstream.XStream;
 
+import simpletree.exceptions.CSSLoadException;
+import simpletree.exceptions.FXMLLoadException;
 import simpletree.model.KPI;
 import simpletree.util.FileUtil;
 import javafx.application.Application;
@@ -44,92 +47,73 @@ public class Main extends Application {
 	private ScrollPane treeScrollPane;
 	private ObservableList<KPI> kpiData = FXCollections.observableArrayList();
 	private Stage primaryStage;
-
-	/**
-	 * Constructor for the Main Class. Adds the data <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
+	private String rootLayoutPath;
+	private String cssPath;
+	private String title;
+	
 	public Main() {
-		//TODO Implement tests.
-		//TODO Implement way to read more complex data from database
-		//FIXME  Implement way to read more complex data from xml files
-		// Adds some sample data
-		kpiData.add(new KPI(0, (new int[] { 1, 2 }), "Opex/Oz"));
-		kpiData.add(new KPI(1, (new int[] {}), "Opex (USD)"));
-		kpiData.add(new KPI(2, (new int[] { 3, 4, 5, 6, 7 }),
-				"Equivalent Ounces"));
-		kpiData.add(new KPI(3, (new int[] {}), "Throughtput"));
-		kpiData.add(new KPI(4, (new int[] {}), "Gold Back Grade"));
-		kpiData.add(new KPI(5, (new int[] {}), "Crushing Throughput"));
-		kpiData.add(new KPI(6, (new int[] { 8, 9 }), "Mill Throughput"));
-		kpiData.add(new KPI(7, (new int[] {}), "Global Recovery"));
-		kpiData.add(new KPI(8, (new int[] {}), "Work Index"));
-		kpiData.add(new KPI(9, (new int[] {}), "Availability"));
-		
+		rootLayoutPath = "view/RootLayout.fxml";
+		cssPath = "view/MainTheme.css";
+		title = "Simple Tree Deployment";
 	}
 
-
-	
-	/**
-	 * Starts the primary stage from rootLayout <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
 	@Override
-	public void start(Stage primaryStage) {
-		//TODO Implement tests.
-		this.primaryStage = primaryStage;
+	public void start(Stage primaryStage) throws FXMLLoadException, CSSLoadException {
+		// TODO Implement tests.
 		
+		
+		this.primaryStage = primaryStage;
+		FXMLLoader rootLoader;
+
 		try {
-
-			//TODO create helper function to load and define controller for all views in the main class
-			
-			// loads the FXML file with the root layout interface
-			FXMLLoader rootLoader = new FXMLLoader(
-					Main.class.getResource("view/RootLayout.fxml"));
-			setRootLayout((BorderPane) rootLoader.load());
-
-			// sets the first scene
-			Scene firstScene = new Scene(rootLayout);
-
-			// sets the primaryStage
-			primaryStage.setTitle("Simple Tree Deployment");
-			primaryStage.setScene(firstScene);
-
-			// Gives RootLayoutController permission to call methods that
-			// requires the primary scene
-			RootLayoutController controller = rootLoader.getController();
-			controller.setMain(this);
-
-			showTreeScrollPane();
-
-			primaryStage.show();
-
+			// Creates the load object for the root layout
+			rootLoader = new FXMLLoader(Main.class.getResource(rootLayoutPath));
+			this.rootLayout = rootLoader.load();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new FXMLLoadException("Failed to load the file: " + rootLayoutPath);
 
 		}
+
+		// sets the first scene
+		Scene firstScene = new Scene(rootLayout);
+
+		// ADD CSS FILE
+		try {
+			firstScene.getStylesheets().add(
+					Main.class.getResource(cssPath).toExternalForm());
+		} catch (Exception e) {
+			throw new CSSLoadException("Failed to load the file: " + cssPath);
+			
+		}
+
+		// Gives RootLayoutController permission to call methods that
+		// requires the primary scene
+//		RootLayoutController controller = rootLoader.getController();
+//		controller.setMain(this);
+
+		// showTreeScrollPane();
+
+		// Loads the view and assigns it to rootLayout
+
+
+
+		// sets the primaryStage
+		primaryStage.setTitle(title);
+		primaryStage.setScene(firstScene);
+
+		primaryStage.show();
+
 	}
 
-	
-	
-	/**
-	 * Purpose <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
 	public void showTreeScrollPane() {
-		//TODO Implement tests.
+		// TODO Implement tests.
 		try {
-			//TODO modify to use helper function
+			// TODO modify to use helper function
 			FXMLLoader ScrollPaneLoader = new FXMLLoader(
 					Main.class.getResource("view/TreeScrollPaneLayout.fxml"));
 			setTreeScrollPane((ScrollPane) ScrollPaneLoader.load());
-			TreeScrollPaneLayoutController controller = ScrollPaneLoader.getController();
+			TreeScrollPaneLayoutController controller = ScrollPaneLoader
+					.getController();
 			controller.setMain(this);
 
 			rootLayout.setCenter(getTreeScrollPane());
@@ -140,130 +124,66 @@ public class Main extends Application {
 		}
 
 	}
-	
-	/**
-	 * Purpose <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
+
 	public ObservableList<KPI> getkpiData() {
-		//TODO Implement tests.
+		// TODO Implement tests.
 		return kpiData;
 	}
 
-	/**
-	 * Purpose <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
 	public BorderPane getrootLayout() {
-		//XXX Implement tests.
+		// XXX Implement tests.
 		return rootLayout;
 	}
-	
-	/**
-	 * Purpose <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
+
 	public Stage getPrimaryStage() {
-		//XXX Implement tests.
+		// XXX Implement tests.
 		return primaryStage;
 	}
 
-	
-	/**
-	 * Purpose <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
-	public void setPrimaryStage(Stage primaryStage) {
-		//XXX Implement tests.
-		this.primaryStage = primaryStage;
-	}
-	/**
-	 * Purpose <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
-	public void setRootLayout(BorderPane rootLayout) {
-		//XXX Implement tests.
-		this.rootLayout = rootLayout;
-	}
-	
-	/**
-	 * Purpose <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
 	public BorderPane getRootLayout() {
-		//TODO Implement tests.
+		// TODO Implement tests.
 		return rootLayout;
 	}
-	
-	/**
-	 * Purpose here <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
+
 	public ScrollPane getTreeScrollPane() {
-		//TODO Implement tests.
+		// TODO Implement tests.
 		return treeScrollPane;
 	}
 
-	/**
-	 * Purpose here <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
 	public void setTreeScrollPane(ScrollPane treeScrollPane) {
-		//TODO Implement tests.
+		// TODO Implement tests.
 		this.treeScrollPane = treeScrollPane;
 	}
-	
-	/**
-	 * Purpose here <br>
-	 * REQUIRES:  <br>
-	 * MODIFIES:  <br>
-	 * EFFECTS:   <br>
-	 */
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	/**
-	 * Loads KPI data from the specified file. The current KPI data will
-	 * be replaced.
+	 * Loads KPI data from the specified file. The current KPI data will be
+	 * replaced.
 	 * 
 	 * @param file
 	 */
 	@SuppressWarnings("unchecked")
 	public void loadKPIDataFromFile(File file) {
-	  XStream xstream = new XStream();
-	  xstream.alias("kpi", KPI.class);
+		XStream xstream = new XStream();
+		xstream.alias("kpi", KPI.class);
 
-	  try {
-	    String xml = FileUtil.readFile(file);
+		try {
+			String xml = FileUtil.readFile(file);
 
-	    ArrayList<KPI> kpiList = (ArrayList<KPI>) xstream.fromXML(xml);
+			ArrayList<KPI> kpiList = (ArrayList<KPI>) xstream.fromXML(xml);
 
-	    kpiData.clear();
-	    kpiData.addAll(kpiList);
+			kpiData.clear();
+			kpiData.addAll(kpiList);
 
-	    setKPIFilePath(file);
-	  } catch (Exception e) { // catches ANY exception
-	    Dialogs.showErrorDialog(primaryStage,
-	        "Could not load data from file:\n" + file.getPath(),
-	        "Could not load data", "Error", e);
-	  }
+			setKPIFilePath(file);
+		} catch (Exception e) { // catches ANY exception
+			Dialogs.showErrorDialog(primaryStage,
+					"Could not load data from file:\n" + file.getPath(),
+					"Could not load data", "Error", e);
+		}
 	}
 
 	/**
@@ -272,60 +192,61 @@ public class Main extends Application {
 	 * @param file
 	 */
 	public void saveKPIDataToFile(File file) {
-	  XStream xstream = new XStream();
-	  xstream.alias("kpi", KPI.class);
+		XStream xstream = new XStream();
+		xstream.alias("kpi", KPI.class);
 
-	  // Convert ObservableList to a normal ArrayList
-	  ArrayList<KPI> kpiList = new ArrayList<>(kpiData);
+		// Convert ObservableList to a normal ArrayList
+		ArrayList<KPI> kpiList = new ArrayList<>(kpiData);
 
-	  String xml = xstream.toXML(kpiList);
-	  try {
-	    FileUtil.saveFile(xml, file);
+		String xml = xstream.toXML(kpiList);
+		try {
+			FileUtil.saveFile(xml, file);
 
-	    setKPIFilePath(file);
-	  } catch (Exception e) { // catches ANY exception
-	    Dialogs.showErrorDialog(primaryStage,
-	        "Could not save data to file:\n" + file.getPath(),
-	        "Could not save data", "Error", e);
-	  }
+			setKPIFilePath(file);
+		} catch (Exception e) { // catches ANY exception
+			Dialogs.showErrorDialog(primaryStage,
+					"Could not save data to file:\n" + file.getPath(),
+					"Could not save data", "Error", e);
+		}
 	}
-	
+
 	/**
-	 * Returns the kpi file preference, i.e. the file that was last opened.
-	 * The preference is read from the OS specific registry. If no such
-	 * preference can be found, null is returned.
+	 * Returns the kpi file preference, i.e. the file that was last opened. The
+	 * preference is read from the OS specific registry. If no such preference
+	 * can be found, null is returned.
 	 * 
 	 * @return
 	 */
 	public File getKPIFilePath() {
-	  Preferences prefs = Preferences.userNodeForPackage(Main.class);
-	  String filePath = prefs.get("filePath", null);
-	  if (filePath != null) {
-	    return new File(filePath);
-	  } else {
-	    return null;
-	  }
+		Preferences prefs = Preferences.userNodeForPackage(Main.class);
+		String filePath = prefs.get("filePath", null);
+		if (filePath != null) {
+			return new File(filePath);
+		} else {
+			return null;
+		}
 	}
 
 	/**
-	 * Sets the file path of the currently loaded file.
-	 * The path is persisted in the OS specific registry.
+	 * Sets the file path of the currently loaded file. The path is persisted in
+	 * the OS specific registry.
 	 * 
-	 * @param file the file or null to remove the path
+	 * @param file
+	 *            the file or null to remove the path
 	 */
 	public void setKPIFilePath(File file) {
-	  Preferences prefs = Preferences.userNodeForPackage(Main.class);
-	  if (file != null) {
-	    prefs.put("filePath", file.getPath());
+		Preferences prefs = Preferences.userNodeForPackage(Main.class);
+		if (file != null) {
+			prefs.put("filePath", file.getPath());
 
-	    // Update the stage title
-	    primaryStage.setTitle("Simple Tree Deployment- " + file.getName());
-	  } else {
-	    prefs.remove("filePath");
+			// Update the stage title
+			primaryStage.setTitle("Simple Tree Deployment- " + file.getName());
+		} else {
+			prefs.remove("filePath");
 
-	    // Update the stage title
-	    primaryStage.setTitle("Simple Tree Deployment");
-	  }
+			// Update the stage title
+			primaryStage.setTitle("Simple Tree Deployment");
+		}
 	}
-	
+
 }

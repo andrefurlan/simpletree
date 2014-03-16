@@ -2,17 +2,30 @@
  
 }
 
-.treegrid {
+#treegrid {
+	-fx-border-color: darkgray;
+
+}
+
+#grid-label {
+    -fx-font-size: 11.0pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+    -fx-opacity: 0.6;
+    }
+
+#grid-value {
+	-fx-column-halignment: center ;
+}
+
+#btNext {
+	-fx-background-radius: 0.0,0.0,0.0,0.0;
+	-fx-border-width: 0,0;
 	
-}
-
-#bottom-label {
-
-}
-.button {
- 
-}
-
-.button:hover {
- 
+	-fx-scale-shape: true ;
+	-fx-background-color: 
+        #c3c4c4,
+        linear-gradient(#d6d6d6 50.0%, white 100.0%),
+        radial-gradient(center 50.0% -40.0%, radius 200.0%, #e6e6e6 45.0%, rgba(230.0,230.0,230.0,0.0) 50.0%);
+    -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 3.0, 0.0 , 0.0 , 1.0 );
 }

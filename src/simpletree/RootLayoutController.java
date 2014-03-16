@@ -16,7 +16,7 @@ public class RootLayoutController {
 	private Main main;
 
 	public RootLayoutController() {
-
+		int a = 1;
 	}
 
 	public void setMain(Main main) {
@@ -25,7 +25,7 @@ public class RootLayoutController {
 
 	@FXML
 	private void initialize() {
-
+		int a = 1;
 	}
 
 	@FXML

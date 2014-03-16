@@ -4,8 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fx:id="treeScrollPane" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpletree.TreeScrollPaneLayoutController">
+<ScrollPane fx:id="treeScrollPane" BorderPane.alignment="CENTER"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="simpletree.TreeScrollPaneLayoutController">
 	<content>
 		<AnchorPane fx:id="treeAnchorPane">
 		</AnchorPane>
