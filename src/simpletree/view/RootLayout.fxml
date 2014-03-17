@@ -28,7 +28,7 @@
 				</Menu>
 				<Menu mnemonicParsing="false" text="Edit">
 					<items>
-						<MenuItem mnemonicParsing="false" text="Delete" />
+						<MenuItem mnemonicParsing="false" onAction="#handleChangeTitle" text="Change Title" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">

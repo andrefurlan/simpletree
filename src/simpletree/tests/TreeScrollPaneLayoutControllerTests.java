@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import simpletree.Main;
 import simpletree.RootLayoutController;
-import simpletree.TreeScrollPaneLayoutController;
+import simpletree.ScrollPaneController;
 
 
 public class TreeScrollPaneLayoutControllerTests {
@@ -32,7 +32,7 @@ public class TreeScrollPaneLayoutControllerTests {
 			FXMLLoader ScrollPaneLoader = new FXMLLoader(
 					Main.class.getResource("view/TreeScrollPaneLayout.fxml"));
 			TSPL = (ScrollPane) ScrollPaneLoader.load();
-			TreeScrollPaneLayoutController controller = ScrollPaneLoader.getController();
+			ScrollPaneController controller = ScrollPaneLoader.getController();
 			//controller.setMain(this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

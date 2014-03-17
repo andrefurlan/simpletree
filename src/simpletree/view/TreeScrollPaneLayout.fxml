@@ -6,7 +6,7 @@
 
 <ScrollPane fx:id="treeScrollPane" BorderPane.alignment="CENTER"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="simpletree.TreeScrollPaneLayoutController">
+	fx:controller="simpletree.ScrollPaneController">
 	<content>
 		<AnchorPane fx:id="treeAnchorPane">
 		</AnchorPane>
