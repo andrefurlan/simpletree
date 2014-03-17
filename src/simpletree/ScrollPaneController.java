@@ -18,30 +18,18 @@ import javafx.scene.layout.RowConstraints;
 
 public class ScrollPaneController {
 
-	private Main main;
 	@FXML
 	private AnchorPane treeAnchorPane;
 	private double startX = 20.0;
 	private double startY = 100.0;
+	private static ScrollPaneController instance;
 
-	// TODO White documentation for TreeScrollPaneLayoutController
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
+
 	public ScrollPaneController() {
-		// TODO Implement tests.
+		instance = this;
 	}
 
-	// TODO White documentation for initialize
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
+
 	@FXML
 	private void initialize() {
 		// TODO Implement tests.
@@ -52,28 +40,15 @@ public class ScrollPaneController {
 
 	}
 
-	// TODO White documentation for setMain
+
 	/**
-	 * Is called by the main application to give a reference back to itself.
-	 * Once the link is set, it calls the function to setup the head of the
-	 * tree. <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
+	 * @return the instance
 	 */
-	public void setMain(Main main) {
-		// TODO Implement tests.
-		this.main = main;
-		setupHead();
+	public static ScrollPaneController getInstance() {
+		return instance;
 	}
 
-	// TODO White documentation for setupHead
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
+	
 	public void setupHead() {
 		// TODO Implement tests.
 		KPI headKPI = new KPI(0, (new int[] { 1, 2 }), "Opex/Oz");
@@ -86,13 +61,7 @@ public class ScrollPaneController {
 		treeAnchorPane.getChildren().addAll(head);
 	}
 
-	// TODO White documentation for buildGridPane
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
+
 	private GridPane buildGridPane(KPI kpi, double x, double y) {
 		// TODO Implement tests.
 		// TODO make treeGrid pretty
@@ -173,13 +142,7 @@ public class ScrollPaneController {
 		return secondRowGrid;
 	}
 
-	// TODO White documentation for buildFirstRowGrid
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
+
 	private GridPane buildFirstRowGrid(KPI kpi, final double x, final double y) {
 
 		// TODO Implement tests.
@@ -207,13 +170,7 @@ public class ScrollPaneController {
 		// TODO make btNext pretty
 		btNext.setOnAction(new EventHandler<ActionEvent>() {
 
-			// TODO White documentation for handle
-			/**
-			 * Purpose here <br>
-			 * REQUIRES: <br>
-			 * MODIFIES: <br>
-			 * EFFECTS: <br>
-			 */
+
 			public void handle(ActionEvent e) {
 				deploy(childrenID, x, y);
 			}
@@ -223,13 +180,7 @@ public class ScrollPaneController {
 		return firstRowGrid;
 	}
 
-	// TODO White documentation for deploy
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
+
 	protected void deploy(int[] childrenID, double x, double y) {
 
 		double nextX = x + 180;

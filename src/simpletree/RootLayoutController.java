@@ -19,6 +19,7 @@ public class RootLayoutController {
 
 	private ScrollPane scrollPane;
 	private static RootLayoutController instance;
+	private ObservableList<KPI> kpiData = FXCollections.observableArrayList();
 
 	public RootLayoutController() {
 		instance = this;
@@ -64,7 +65,7 @@ public class RootLayoutController {
 		
 		Main.getInstance().getRootLayout().setCenter(scrollPane);
 		
-		addTreeHead();
+		ScrollPaneController.getInstance().setupHead();
 		
 //		FileChooser fileChooser = new FileChooser();
 //
@@ -81,8 +82,18 @@ public class RootLayoutController {
 //		}
 	}
 	private void importDataStub() {
-		ObservableList<KPI> kpiData = FXCollections.observableArrayList();
 		
+		kpiData.add(new KPI(0, (new int[] { 1, 2 }), "Opex/Oz"));
+  		kpiData.add(new KPI(1, (new int[] {}), "Opex (USD)"));
+  		kpiData.add(new KPI(2, (new int[] { 3, 4, 5, 6, 7 }),
+  				"Equivalent Ounces"));
+  		kpiData.add(new KPI(3, (new int[] {}), "Throughtput"));
+  		kpiData.add(new KPI(4, (new int[] {}), "Gold Back Grade"));
+  		kpiData.add(new KPI(5, (new int[] {}), "Crushing Throughput"));
+  		kpiData.add(new KPI(6, (new int[] { 8, 9 }), "Mill Throughput"));
+  		kpiData.add(new KPI(7, (new int[] {}), "Global Recovery"));
+  		kpiData.add(new KPI(8, (new int[] {}), "Work Index"));
+  		kpiData.add(new KPI(9, (new int[] {}), "Availability"));
 	}
 	
 	private void loadScrollPane() throws FXMLLoadException {
@@ -97,14 +108,6 @@ public class RootLayoutController {
 		}
 		
 	}
-	
-	private void addTreeHead() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
 
 
 	@FXML
