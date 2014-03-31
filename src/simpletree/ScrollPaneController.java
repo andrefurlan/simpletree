@@ -5,7 +5,11 @@
 
 package simpletree;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import simpletree.model.Kpi;
+import simpletree.model.TreeNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -51,14 +55,18 @@ public class ScrollPaneController {
 	
 	public void setupHead() {
 		// TODO Implement tests.
-		Kpi headKPI = new Kpi(0, (new int[] { 1, 2 }), "Opex/Oz");
+		Set<Integer> children = new HashSet<Integer>();
+		children.add(2);
+		children.add(3);
+		children.add(4);
+		Kpi headKPI = new Kpi(1, "Opex/Oz", children, false, "CAN$");
 		//KPI headKPI = main.getkpiData().get(0);
 
-		GridPane head = buildGridPane(headKPI, startX, startY);
+		TreeNode head = new TreeNode(headKPI);
 		// TODO verify why is this yellow
-		treeAnchorPane.setTopAnchor(head, startY);
-		treeAnchorPane.setLeftAnchor(head, startX);
-		treeAnchorPane.getChildren().addAll(head);
+		treeAnchorPane.setTopAnchor(head.getGridPane(), startY);
+		treeAnchorPane.setLeftAnchor(head.getGridPane(), startX);
+		treeAnchorPane.getChildren().addAll(head.getGridPane());
 	}
 
 

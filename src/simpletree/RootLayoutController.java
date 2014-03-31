@@ -55,7 +55,7 @@ public class RootLayoutController {
 	private void handleImportData() {
 		
 		//TODO datastub...
-		importDataStub();
+		//importDataStub();
 		
 
 		
@@ -85,17 +85,17 @@ public class RootLayoutController {
 	}
 	private void importDataStub() {
 		
-		kpiData.add(new Kpi(0, (new int[] { 1, 2 }), "Opex/Oz"));
-  		kpiData.add(new Kpi(1, (new int[] {}), "Opex (USD)"));
-  		kpiData.add(new Kpi(2, (new int[] { 3, 4, 5, 6, 7 }),
-  				"Equivalent Ounces"));
-  		kpiData.add(new Kpi(3, (new int[] {}), "Throughtput"));
-  		kpiData.add(new Kpi(4, (new int[] {}), "Gold Back Grade"));
-  		kpiData.add(new Kpi(5, (new int[] {}), "Crushing Throughput"));
-  		kpiData.add(new Kpi(6, (new int[] { 8, 9 }), "Mill Throughput"));
-  		kpiData.add(new Kpi(7, (new int[] {}), "Global Recovery"));
-  		kpiData.add(new Kpi(8, (new int[] {}), "Work Index"));
-  		kpiData.add(new Kpi(9, (new int[] {}), "Availability"));
+//		kpiData.add(new Kpi(0, (new int[] { 1, 2 }), "Opex/Oz"));
+//  		kpiData.add(new Kpi(1, (new int[] {}), "Opex (USD)"));
+//  		kpiData.add(new Kpi(2, (new int[] { 3, 4, 5, 6, 7 }),
+//  				"Equivalent Ounces"));
+//  		kpiData.add(new Kpi(3, (new int[] {}), "Throughtput"));
+//  		kpiData.add(new Kpi(4, (new int[] {}), "Gold Back Grade"));
+//  		kpiData.add(new Kpi(5, (new int[] {}), "Crushing Throughput"));
+//  		kpiData.add(new Kpi(6, (new int[] { 8, 9 }), "Mill Throughput"));
+//  		kpiData.add(new Kpi(7, (new int[] {}), "Global Recovery"));
+//  		kpiData.add(new Kpi(8, (new int[] {}), "Work Index"));
+//  		kpiData.add(new Kpi(9, (new int[] {}), "Availability"));
 	}
 	
 	private void loadScrollPane() throws FXMLLoadException {

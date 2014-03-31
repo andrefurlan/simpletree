@@ -17,46 +17,50 @@ public class TreeNode {
 		buildGrid();
 	}
 
-	public void getTreeNode(){
+	
+	
+	public GridPane getGridPane(){
+		return this.grid;
+	}
+	
+	public void setValuesDaily() {
 		
 	}
 	
-	
-	private void buildGrid() {
-		// TODO Auto-generated method stub
-		
+	public void setValuesWeekly() {
+
+	}
+
+	public void setValuesMonthly() {
+
 	}
 	
+	public void setValuesYearly() {
+
+	}	
 	
 	
-	
-	
-	
-	
-	
-	
-	private GridPane buildGridPane(Kpi kpi, double x, double y) {
+	private GridPane buildGrid() {
 		// TODO Implement tests.
 		// TODO make treeGrid pretty
-		GridPane treeGrid = new GridPane();
+		grid = new GridPane();
 		// treeGrid.setGridLinesVisible(true);
-		treeGrid.setId("treegrid");
+		grid.setId("tree-node");
 		// set main grid constraints
-		treeGrid.getColumnConstraints().add(new ColumnConstraints(150));
-		treeGrid.getRowConstraints().add(new RowConstraints(18));
-		treeGrid.getRowConstraints().add(new RowConstraints(54));
-		treeGrid.getRowConstraints().add(new RowConstraints(18));
+		grid.getColumnConstraints().add(new ColumnConstraints(150));
+		grid.getRowConstraints().add(new RowConstraints(18));
+		grid.getRowConstraints().add(new RowConstraints(54));
+		grid.getRowConstraints().add(new RowConstraints(18));
 
 		// call helper functions to build nested grids
-		GridPane firstRowGrid = buildFirstRowGrid(kpi, x, y);
-		GridPane secondRowGrid = buildSecondRowGrid(kpi);
-		GridPane thirdRowGrid = buildThirdRowGrid(kpi);
-		// TODO helper function for row three
-		treeGrid.add(firstRowGrid, 0, 0);
-		treeGrid.add(secondRowGrid, 0, 1);
-		treeGrid.add(thirdRowGrid, 0, 2);
+//		GridPane firstRowGrid = buildFirstRowGrid(kpi, x, y);
+//		GridPane secondRowGrid = buildSecondRowGrid(kpi);
+//		GridPane thirdRowGrid = buildThirdRowGrid(kpi);
+//		grid.add(firstRowGrid, 0, 0);
+//		grid.add(secondRowGrid, 0, 1);
+//		grid.add(thirdRowGrid, 0, 2);
 
-		return treeGrid;
+		return grid;
 	}
 
 	private GridPane buildThirdRowGrid(Kpi kpi) {
@@ -75,9 +79,9 @@ public class TreeNode {
 
 	private GridPane buildSecondRowGrid(Kpi kpi) {
 		// TODO Auto-generated method stub
-		String goalStr = String.valueOf(kpi.getGoal());
-		String actualStr = String.valueOf(kpi.getActual());
-		String percDeviationStr = String.valueOf(kpi.getPercDeviation());
+//		String goalStr = String.valueOf(kpi.getGoal());
+//		String actualStr = String.valueOf(kpi.getActual());
+//		String percDeviationStr = String.valueOf(kpi.getPercDeviation());
 
 		GridPane secondRowGrid = new GridPane();
 		secondRowGrid.setId("treegrid-secondrow");
@@ -92,25 +96,25 @@ public class TreeNode {
 		secondRowGrid.add(goalLabel, 0, 0);
 		goalLabel.setId("grid-label");
 
-		Label goalValue = new Label(goalStr);
-		secondRowGrid.add(goalValue, 1, 0);
-		goalValue.setId("grid-value");
+////		Label goalValue = new Label(goalStr);
+//		secondRowGrid.add(goalValue, 1, 0);
+//		goalValue.setId("grid-value");
 
 		Label actualLabel = new Label("ACTUAL");
 		secondRowGrid.add(actualLabel, 0, 1);
 		actualLabel.setId("grid-label");
 
-		Label actualValue = new Label(actualStr);
-		secondRowGrid.add(actualValue, 1, 1);
-		actualValue.setId("grid-value");
+//		Label actualValue = new Label(actualStr);
+//		secondRowGrid.add(actualValue, 1, 1);
+//		actualValue.setId("grid-value");
 
 		Label percDeviationLabel = new Label("Dev. %");
 		secondRowGrid.add(percDeviationLabel, 0, 2);
 		percDeviationLabel.setId("grid-label");
 
-		Label percDeviationValue = new Label(percDeviationStr);
-		secondRowGrid.add(percDeviationValue, 1, 2);
-		percDeviationValue.setId("grid-value");
+//		Label percDeviationValue = new Label(percDeviationStr);
+//		secondRowGrid.add(percDeviationValue, 1, 2);
+//		percDeviationValue.setId("grid-value");
 
 		return secondRowGrid;
 	}
@@ -120,8 +124,8 @@ public class TreeNode {
 
 		// TODO Implement tests.
 		int id = kpi.getId();
-		String name = kpi.getName();
-		final int[] childrenID = kpi.getChildren();
+//		String name = kpi.getName();
+//		final int[] childrenID = kpi.getChildren();
 
 		GridPane firstRowGrid = new GridPane();
 		firstRowGrid.setId("treegrid-firstrow");
@@ -131,8 +135,8 @@ public class TreeNode {
 		firstRowGrid.getRowConstraints().add(new RowConstraints(18));
 
 		// insert the KPI name
-		Label kpiName = new Label(name);
-		firstRowGrid.add(kpiName, 0, 0);
+//		Label kpiName = new Label(name);
+//		firstRowGrid.add(kpiName, 0, 0);
 
 		// insert button to deploy tree
 		Button btNext = new Button();
@@ -145,7 +149,7 @@ public class TreeNode {
 
 
 			public void handle(ActionEvent e) {
-				deploy(childrenID, x, y);
+//				deploy(childrenID, x, y);
 			}
 		});
 		firstRowGrid.add(btNext, 1, 0);
