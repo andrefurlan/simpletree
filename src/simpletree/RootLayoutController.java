@@ -7,7 +7,7 @@ package simpletree;
 
 
 import simpletree.exceptions.FXMLLoadException;
-import simpletree.model.KPI;
+import simpletree.model.Kpi;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +19,7 @@ public class RootLayoutController {
 
 	private ScrollPane scrollPane;
 	private static RootLayoutController instance;
-	private ObservableList<KPI> kpiData = FXCollections.observableArrayList();
+	private ObservableList<Kpi> kpiData = FXCollections.observableArrayList();
 
 	public RootLayoutController() {
 		instance = this;
@@ -41,7 +41,8 @@ public class RootLayoutController {
 	
 	@FXML
 	private void handleAbout() {
-		 Dialogs.showInformationDialog(Main.getInstance().getPrimaryStage(), "Author: André Furlan Bueno \nhttps://github.com/andrefurlan/simpletree" , "Simple Tree Deployment", "About");
+		//TODO fix this
+		//		 Dialogs.showInformationDialog(Main.getInstance().getPrimaryStage(), "Author: André Furlan Bueno \nhttps://github.com/andrefurlan/simpletree" , "Simple Tree Deployment", "About");
 	}
 	
 	
@@ -53,19 +54,10 @@ public class RootLayoutController {
 	@FXML
 	private void handleImportData() {
 		
-		
+		//TODO datastub...
 		importDataStub();
 		
-		try {
-			loadScrollPane();
-		} catch (FXMLLoadException e) {
-			System.out.println(e.getMessage());
-		}
-		
-		
-		Main.getInstance().getRootLayout().setCenter(scrollPane);
-		
-		ScrollPaneController.getInstance().setupHead();
+
 		
 //		FileChooser fileChooser = new FileChooser();
 //
@@ -80,20 +72,30 @@ public class RootLayoutController {
 //		if (file != null) {
 //			main.loadKPIDataFromFile(file);
 //		}
+		
+		try {
+			loadScrollPane();
+		} catch (FXMLLoadException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		Main.getInstance().getRootLayout().setCenter(scrollPane);
+		
+		ScrollPaneController.getInstance().setupHead();
 	}
 	private void importDataStub() {
 		
-		kpiData.add(new KPI(0, (new int[] { 1, 2 }), "Opex/Oz"));
-  		kpiData.add(new KPI(1, (new int[] {}), "Opex (USD)"));
-  		kpiData.add(new KPI(2, (new int[] { 3, 4, 5, 6, 7 }),
+		kpiData.add(new Kpi(0, (new int[] { 1, 2 }), "Opex/Oz"));
+  		kpiData.add(new Kpi(1, (new int[] {}), "Opex (USD)"));
+  		kpiData.add(new Kpi(2, (new int[] { 3, 4, 5, 6, 7 }),
   				"Equivalent Ounces"));
-  		kpiData.add(new KPI(3, (new int[] {}), "Throughtput"));
-  		kpiData.add(new KPI(4, (new int[] {}), "Gold Back Grade"));
-  		kpiData.add(new KPI(5, (new int[] {}), "Crushing Throughput"));
-  		kpiData.add(new KPI(6, (new int[] { 8, 9 }), "Mill Throughput"));
-  		kpiData.add(new KPI(7, (new int[] {}), "Global Recovery"));
-  		kpiData.add(new KPI(8, (new int[] {}), "Work Index"));
-  		kpiData.add(new KPI(9, (new int[] {}), "Availability"));
+  		kpiData.add(new Kpi(3, (new int[] {}), "Throughtput"));
+  		kpiData.add(new Kpi(4, (new int[] {}), "Gold Back Grade"));
+  		kpiData.add(new Kpi(5, (new int[] {}), "Crushing Throughput"));
+  		kpiData.add(new Kpi(6, (new int[] { 8, 9 }), "Mill Throughput"));
+  		kpiData.add(new Kpi(7, (new int[] {}), "Global Recovery"));
+  		kpiData.add(new Kpi(8, (new int[] {}), "Work Index"));
+  		kpiData.add(new Kpi(9, (new int[] {}), "Availability"));
 	}
 	
 	private void loadScrollPane() throws FXMLLoadException {
@@ -112,7 +114,8 @@ public class RootLayoutController {
 
 	@FXML
 	private void handleSaveData() {
-////	      File personFile = main.getKPIFilePath();
+		//TODO implement save data
+		//	      File personFile = main.getKPIFilePath();
 //	      if (personFile != null) {
 ////	          main.saveKPIDataToFile(personFile);
 //	      } else {
@@ -120,7 +123,9 @@ public class RootLayoutController {
 //	      }
 	  }
 	
-	private void handleSaveAs() {
+	@FXML
+	private void handleSaveDataAs() {
+		//TODO implement save data as
 //	    FileChooser fileChooser = new FileChooser();
 //
 //	    // Set extension filter

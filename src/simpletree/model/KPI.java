@@ -1,241 +1,201 @@
 package simpletree.model;
 
-public class KPI {
 
+import java.util.HashSet;
+import java.util.Set;
+
+public class Kpi {
+
+	// MANDATORY FIELDS
 	private int id;
-	private int[] children;
-	private String name;
-	private double goal;
-	private String month;
-	private String year;
-	private String period;
-	private double actual;
-	private double percDeviation;
-	private String better;
+	private String description;
+	private Set<Integer> childrenSet;
+	private boolean betterUp;
+	private String unit;
 
-	// TODO add unit and responsible to KPI. Add day support and accumulated
-	// period
+	// OPTIONAL FIELDS
+	private Set<DailyValue> dailyGoals;
+	private Set<WeeklyValue> weeklyGoals;
+	private Set<MonthlyValue> monthlyGoals;
+	private Set<YearlyValue> yearlyGoals;
 
-	public KPI(int id, int[] children, String name) {
+	private Set<DailyValue> dailyActuals;
+	private Set<WeeklyValue> weeklyActuals;
+	private Set<MonthlyValue> monthlyActuals;
+	private Set<YearlyValue> yearlyActuals;
+
+	private String owner;
+
+	// TODO Add support accumulated period
+
+	public Kpi(int id, String description, Set<Integer> children, boolean betterUp, String unit) {
 		this.id = id;
-		this.children = children;
-		this.name = name;
-		this.actual = 0.0;
-		this.goal = 0.0;
-		this.percDeviation = 0.0;
-		this.better = "up";
-		this.month = "January";
-		this.year = "2010";
-		this.period = year + "/" + month;
+		this.childrenSet = children;
+		this.description = description;
+		this.betterUp = betterUp;
+		this.unit = unit;
+		
+		this.dailyGoals = new HashSet<>();
+		this.weeklyGoals = new HashSet<>();
+		this.monthlyGoals = new HashSet<>();
+		this.yearlyGoals = new HashSet<>();
+		
+		this.dailyActuals = new HashSet<>();
+		this.weeklyActuals = new HashSet<>();
+		this.monthlyActuals = new HashSet<>();
+		this.yearlyActuals = new HashSet<>();
+		
+		this.owner = new String();
+		
+	}
+	
+	public Set<Kpi> getChildrenKpis() {
+		//TODO getChildrenKpis
+		return null;
+
 	}
 
-	// TODO White documentation for get functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
+	
 	public int getId() {
-		// TODO Implement tests.
-		return id;
+		return this.id;
+	}
+	
+	public boolean getBetterUp() {
+		return this.betterUp;
+	}
+	
+	public String getUnit() {
+		return this.unit;
+	}
+	
+	public String getDescription() {
+		return this.description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public Set<Integer> getChildrenArray(){
+		return this.childrenSet;
+	}
+	
+	public void setChildrenSet(Set<Integer> childrenSet){
+		this.childrenSet = childrenSet;
+	}
+	
+	
+	public void addChildren (int childrenId) {
+		this.childrenSet.add(childrenId);
+	}
+	
+	public void removeChildren (int childrenId) {
+		this.childrenSet.remove(childrenId);
+	}
+	
+	
+	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
 	}
 
-	// TODO White documentation for get functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	public int[] getChildren() {
-		// TODO Implement tests.
-		return children;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Kpi other = (Kpi) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
-	// TODO White documentation for get functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public double getActual() {
-		// TODO Implement tests.
-		return actual;
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+	
+	public String getOwner() {
+		return this.owner;
+	}
+	
+	public Set<DailyValue> getDailyGoals() {
+		return this.dailyGoals;
 	}
 
-	// TODO White documentation for get functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public double getGoal() {
-		// TODO Implement tests.
-		return goal;
+	public Set<WeeklyValue> getWeeklyGoals() {
+		return this.weeklyGoals;
 	}
 
-	// TODO White documentation for get functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public String getName() {
-		// TODO Implement tests.
-		return name;
+	public Set<MonthlyValue> getMonthlyGoals() {
+		return this.monthlyGoals;
+	}
+	
+	public Set<YearlyValue> getYearlyGoals() {
+		return this.yearlyGoals;
 	}
 
-	// TODO White documentation for get functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public String getBetter() {
-		// TODO Implement tests.
-
-		return better;
+	public Set<DailyValue> getDailyActuals() {
+		return this.dailyActuals;
 	}
 
-	// TODO White documentation for get functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public String getPeriod() {
-		// TODO Implement tests.
-		this.period = year + "/" + month;
-		return period;
+	public Set<WeeklyValue> getWeeklyActuals() {
+		return this.weeklyActuals;
 	}
 
-	// TODO White documentation for get functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public String getMonth() {
-		// TODO Implement tests.
-		return month;
+	public Set<MonthlyValue> getMonthlyActuals() {
+		return this.monthlyActuals;
+	}
+	
+	public Set<YearlyValue> getYearlyActuals() {
+		return this.yearlyActuals;
 	}
 
-	// TODO White documentation for get functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public String getYear() {
-		// TODO Implement tests.
-		return year;
+	
+
+	public void setDailyGoals(Set<DailyValue> goals) {
+		this.dailyGoals = goals;
 	}
 
-	// TODO White documentation for set functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public void setActual(double actual) {
-		// TODO Implement tests.
-		this.actual = actual;
+	public void setWeeklyGoals(Set<WeeklyValue> goals) {
+		this.weeklyGoals = goals;
 	}
 
-	// TODO White documentation for set functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public void setGoal(double goal) {
-		// TODO Implement tests.
-		this.goal = goal;
+	public void setMonthlyGoals(Set<MonthlyValue> goals) {
+		this.monthlyGoals = goals;
+	}
+	
+	public void setYearlyGoals(Set<YearlyValue> goals) {
+		this.yearlyGoals = goals;
 	}
 
-	// TODO White documentation for set functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public void setName(String name) {
-		// TODO Implement tests.
-		this.name = name;
+	public void setDailyActuals(Set<DailyValue> actuals) {
+		this.dailyActuals = actuals;
 	}
 
-	// TODO White documentation for set functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public void setBetter(String better) {
-		// TODO Implement tests.
-		this.better = better;
+	public void setWeeklyActuals(Set<WeeklyValue> actuals) {
+		this.weeklyActuals = actuals;
 	}
 
-	// TODO White documentation for set functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public void setChildren(int[] children) {
-		// TODO Implement tests.
-		this.children = children;
+	public void setMonthlyActuals(Set<MonthlyValue> actuals) {
+		this.monthlyActuals = actuals;
 	}
-
-	// TODO White documentation for set functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public void setMonth(String month) {
-		// TODO Implement tests.
-		this.month = month;
-	}
-
-	// TODO White documentation for set functions in KPI
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public void setYear(String year) {
-		// TODO Implement tests.
-		this.year = year;
-
-	}
-
-	// TODO White documentation for getPercDeviation
-	/**
-	 * Purpose here <br>
-	 * REQUIRES: <br>
-	 * MODIFIES: <br>
-	 * EFFECTS: <br>
-	 */
-	public double getPercDeviation() {
-		// TODO Implement tests.
-		// TODO Implement deviation calculation
-		double percDeviation = this.percDeviation;
-		return percDeviation;
+	
+	public void setYearlyActuals(Set<YearlyValue> actuals) {
+		this.yearlyActuals = actuals;
 	}
 
 }

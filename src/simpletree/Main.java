@@ -34,36 +34,38 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws FXMLLoadException, CSSLoadException {
 		// TODO Implement tests.
 		
-		String rootLayoutPath = "view/RootLayout.fxml";
-		String cssPath = "view/MainTheme.css";
-		String title = "Simple Tree Deployment";
 		this.primaryStage = primaryStage;
 
-		// Creates the load object for the root layout and loads the rootLayout
-		FXMLLoader rootLoader = new FXMLLoader(getClass().getResource(rootLayoutPath));
-		try {
-			this.rootLayout = rootLoader.load();
-		} catch (Exception e) {
-			throw new FXMLLoadException("Failed to load the file: " + rootLayoutPath);
-		}
+		String rootLayoutPath = "view/RootLayout.fxml";
+		loadRootLayout("view/RootLayout.fxml");
 
 		// sets the first scene
 		Scene firstScene = new Scene(rootLayout);
-		setPrimaryStageScene(firstScene);
+		String cssPath = "view/MainTheme.css";
+		setPrimaryStageScene(firstScene, cssPath);
 
 		//TODO change this later so that the style can be changed
-		// ADD CSS FILE
-		try {
-			firstScene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
-		} catch (Exception e) {
-			throw new CSSLoadException("Failed to load the file: " + cssPath);
-			
-		}
+		
 		
 		// sets the primaryStage title
+		String title = "Simple Tree Deployment";
 		setPrimaryStageTitle(title);
 		primaryStage.show();
 	}
+
+	private void loadRootLayout(String path) throws FXMLLoadException {
+		// Creates the load object for the root layout and loads the rootLayout
+		
+		FXMLLoader rootLoader = new FXMLLoader(getClass().getResource(
+				path));
+		try {
+			this.rootLayout = rootLoader.load();
+		} catch (Exception e) {
+			throw new FXMLLoadException("Failed to load the file: " + path);
+		}
+		
+	}
+
 
 	/**
 	 * Launches the application
@@ -101,9 +103,17 @@ public class Main extends Application {
 	/**
 	 * sets a new scene to the primary stage
 	 * @param scene
+	 * @throws CSSLoadException 
 	 */
-	public void setPrimaryStageScene(Scene scene) {
+	public void setPrimaryStageScene(Scene scene, String cssPath) throws CSSLoadException {
 		this.primaryStage.setScene(scene);
+		// ADD CSS FILE
+		try {
+			scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+		} catch (Exception e) {
+			throw new CSSLoadException("Failed to load the file: " + cssPath);
+
+		}
 	}
 
 	/**

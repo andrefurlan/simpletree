@@ -19,8 +19,11 @@
 					<items>
 						<MenuItem mnemonicParsing="false" onAction="#handleImportData" text="Import Data" />
 					</items>
-								<items>
+					<items>
 						<MenuItem mnemonicParsing="false" onAction="#handleSaveData" text="Save Data" />
+					</items>
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#handleSaveDataAs" text="Save Data" />
 					</items>
 					<items>
 						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
