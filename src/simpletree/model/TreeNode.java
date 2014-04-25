@@ -1,18 +1,12 @@
 package simpletree.model;
 
 
-import java.awt.Paint;
-import java.awt.PaintContext;
-import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.ColorModel;
-
 import simpletree.RootLayoutController;
 import simpletree.ScrollPaneController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -71,7 +65,7 @@ public class TreeNode {
 		GridPane firstRowGrid = new GridPane();
 		
 		ColumnConstraints column1 = new ColumnConstraints(132);
-		column1.setHalignment(HPos.LEFT);
+		column1.setHalignment(HPos.CENTER);
 		firstRowGrid.getColumnConstraints().add(column1);
 		
 		ColumnConstraints column2 = new ColumnConstraints(18);
@@ -86,7 +80,6 @@ public class TreeNode {
 		Label kpiName = new Label(name);
 		kpiName.setId("kpi-name");
 		firstRowGrid.add(kpiName, 0, 0);
-
 		// insert button to deploy tree
 		Button btNext = new Button();
 		btNext.setId("btNext");

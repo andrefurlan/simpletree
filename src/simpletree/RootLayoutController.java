@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 public class RootLayoutController {
 
 	private ScrollPane scrollPane;
+	private BorderPane rootLayoutCenter;
 	private static RootLayoutController instance;
 	
 
@@ -36,6 +37,10 @@ public class RootLayoutController {
 	
 	public ScrollPane getScrollPane(){
 		return scrollPane;
+	}
+	
+	public BorderPane getBorderPane(){
+		return rootLayoutCenter;
 	}
 
 	@FXML
@@ -85,8 +90,10 @@ public class RootLayoutController {
 		} catch (FXMLLoadException e) {
 			System.out.println(e.getMessage());
 		}
-		BorderPane rootLayoutCenter = (BorderPane) Main.getInstance().getRootLayout().getCenter();
+//		BorderPane rootLayoutCenter = (BorderPane) Main.getInstance().getRootLayout().getCenter();
 		
+		rootLayoutCenter = (BorderPane) Main.getInstance().getRootLayout().getCenter();
+//		scrollPane = (ScrollPane) borderPane.getCenter();
 //		Main.getInstance().getRootLayout().setCenter(scrollPane);
 		rootLayoutCenter.setCenter(scrollPane);
 		scrollPane.setOnMouseClicked(new EventHandler<MouseEvent>() {

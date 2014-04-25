@@ -4,11 +4,46 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+
 <ScrollPane fx:id="treeScrollPane" BorderPane.alignment="CENTER"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="simpletree.ScrollPaneController">
 	<content>
 		<AnchorPane fx:id="treeAnchorPane">
+			<children>
+				<GridPane hgap="36.0" xmlns:fx="http://javafx.com/fxml">
+					<columnConstraints>
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
+							minWidth="150.0" percentWidth="0.0" prefWidth="150.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
+							minWidth="150.0" percentWidth="0.0" prefWidth="150.0" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
+							minWidth="150.0" percentWidth="0.0" prefWidth="150.0"
+							xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
+							minWidth="150.0" percentWidth="0.0" prefWidth="150.0"
+							xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+						<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0"
+							minWidth="150.0" percentWidth="0.0" prefWidth="150.0"
+							xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints maxHeight="18.0" minHeight="18.0"
+							percentHeight="0.0" prefHeight="18.0" vgrow="NEVER" />
+					</rowConstraints>
+					<children>
+						<Label text="Label" GridPane.halignment="CENTER" />
+						<Label text="Label" GridPane.columnIndex="1"
+							GridPane.halignment="CENTER" />
+						<Label text="Label" GridPane.columnIndex="2"
+							GridPane.halignment="CENTER" />
+						<Label text="Label" GridPane.columnIndex="3"
+							GridPane.halignment="CENTER" />
+						<Label text="Label" GridPane.columnIndex="4"
+							GridPane.halignment="CENTER" />
+					</children>
+				</GridPane>
+			</children>
 		</AnchorPane>
 	</content>
 </ScrollPane>

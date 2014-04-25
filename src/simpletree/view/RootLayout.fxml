@@ -5,7 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpletree.RootLayoutController">
+<BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="root"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="simpletree.RootLayoutController">
 
 	<stylesheets>
 		<URL value="@MainTheme.css" />
@@ -15,37 +17,57 @@
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleImportData" text="Import Data" />
+						<MenuItem mnemonicParsing="false" onAction="#handleImportData"
+							text="Import Data" />
 					</items>
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleSaveData" text="Save Data" />
+						<MenuItem mnemonicParsing="false" onAction="#handleSaveData"
+							text="Save Data" />
 					</items>
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleSaveDataAs" text="Save Data As" />
+						<MenuItem mnemonicParsing="false" onAction="#handleSaveDataAs"
+							text="Save Data As" />
 					</items>
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+						<MenuItem mnemonicParsing="false" onAction="#handleExit"
+							text="Exit" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Period">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleSelectPeriod" text="Select Period" />
+						<MenuItem mnemonicParsing="false" onAction="#handleSelectPeriod"
+							text="Select Period" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
+						<MenuItem mnemonicParsing="false" onAction="#handleAbout"
+							text="About" />
 					</items>
 				</Menu>
 			</menus>
 		</MenuBar>
 	</top>
-<center><BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-<top><ToolBar prefWidth="200.0" BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml">
-  <items>
-    <Button mnemonicParsing="false" text="Button" />
-  </items>
-</ToolBar>
-</top></BorderPane>
-</center>
+	<center>
+		<BorderPane 
+			BorderPane.alignment="CENTER">
+			<top>
+				<ToolBar prefHeight="26.0" prefWidth="800.0"
+					BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml">
+					<items>
+						<Button mnemonicParsing="false" text="Button" />
+						<ComboBox prefWidth="150.0" xmlns:fx="http://javafx.com/fxml" />
+						<DatePicker />
+						<MenuButton mnemonicParsing="false" text="MenuButton"
+							xmlns:fx="http://javafx.com/fxml">
+							<items>
+								<MenuItem mnemonicParsing="false" text="Action 1" />
+								<MenuItem mnemonicParsing="false" text="Action 2" />
+							</items>
+						</MenuButton>
+					</items>
+				</ToolBar>
+			</top>
+		</BorderPane>
+	</center>
 </BorderPane>
