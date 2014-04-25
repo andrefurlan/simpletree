@@ -5,45 +5,58 @@
 
 package simpletree;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import simpletree.model.Kpi;
+import simpletree.model.KpiData;
+import simpletree.model.PeriodOptions;
 import simpletree.model.TreeNode;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 
 public class ScrollPaneController {
 
 	@FXML
 	private AnchorPane treeAnchorPane;
-	private double startX = 20.0;
-	private double startY = 100.0;
+	private final double startX = 20.0;
+	private final double startY = 100;
+	private PeriodOptions periodSelection;
+	private double difMInY = 0.0;
+	private double paneHeight = 0.0;
+	private double paneWidth = 0.0;
 	private static ScrollPaneController instance;
-
+	private List<TreeNode> tree;
+	private KpiData data;
 
 	public ScrollPaneController() {
 		instance = this;
 	}
 
-
 	@FXML
 	private void initialize() {
-		// TODO Implement tests.
 
+		// TODO Implement tests.
+		tree = new ArrayList<TreeNode>();
+
+		// TODO delete stub later
+		data = new KpiData();
+		setupHead();
 		// TODO Implement tests for initialize in TreeScrollPaneLayoutController
-		// TODO add function to initialize dropdown button with options for
-		// period to analyze
+
 
 	}
-
 
 	/**
 	 * @return the instance
@@ -52,78 +65,119 @@ public class ScrollPaneController {
 		return instance;
 	}
 
-	
+	public void setPeriodSelection(PeriodOptions selection) {
+		this.periodSelection = selection;
+	}
+
+	public PeriodOptions getPeriodSelection() {
+		return this.periodSelection;
+	}
+
 	public void setupHead() {
 		// TODO Implement tests.
-		Set<Integer> children = new HashSet<Integer>();
-		children.add(2);
-		children.add(3);
-		children.add(4);
-		Kpi headKPI = new Kpi(1, "Opex/Oz", children, false, "CAN$");
-		//KPI headKPI = main.getkpiData().get(0);
 
-		TreeNode head = new TreeNode(headKPI);
-		// TODO verify why is this yellow
-		treeAnchorPane.setTopAnchor(head.getGridPane(), startY);
-		treeAnchorPane.setLeftAnchor(head.getGridPane(), startX);
-		treeAnchorPane.getChildren().addAll(head.getGridPane());
+		// TODO implement a way to find the head based on the relationship
+		// between the kpis
+
+		TreeNode head = new TreeNode(data.getHead());
+		head.setX(startX);
+		head.setY(startY);
+		tree.add(head);
+		buildTree();
+
 	}
 
+	public void deploy(TreeNode treeNode) {
 
-	
+		Kpi kpi = treeNode.getKpi();
+		Kpi parent = data.getKpiById(kpi.getParent());
+		Set<Integer> childrenSet = kpi.getChildrenSet();
+		double width = treeNode.getGridPane().getWidth();
+		double height = treeNode.getGridPane().getHeight();
+		double space = 18;
+		treeAnchorPane.getChildren().clear();
+		clearTree(treeNode);
 
+		if (!childrenSet.isEmpty()) {
 
-	protected void deploy(int[] childrenID, double x, double y) {
+			double levelHeight = childrenSet.size() * height
+					+ (childrenSet.size() - 1) * (space);
+			double start = treeNode.getY() + (height / 2) - (levelHeight / 2);
+			int i = 0;
+			for (int childId : childrenSet) {
+				TreeNode child = new TreeNode(data.getKpiById(childId));
+				child.setY(start + (height + space) * i);
+				child.setX(treeNode.getX() + (width + space * 2));
+				tree.add(child);
+				i++;
+			}
 
-		double nextX = x + 180;
-		double nextY = y + 10;
-		//TODO finish the method. 
-		//TODO Implement tests.
-		for (int childID : childrenID) {
-			//TODO Define better method for getting the KPI from the list...
-			//KPI child = main.getkpiData().get(childID);
-//			GridPane childGrid = buildGridPane(child, nextX, nextY);
-//			treeAnchorPane.setTopAnchor(childGrid, nextY);
-//			treeAnchorPane.setLeftAnchor(childGrid, nextX);
-//			treeAnchorPane.getChildren().addAll(childGrid);
-//			nextX = nextX + 180;
-//			nextY = nextY + 10;
+			adjustCoordinates();
+
 		}
-//		int nChildren = childrenID.length;
-//		double[] nextYs = calcNextY(nChildren, Y);
-//		double nextX = calcNextX(X);
-//		
-//		int i = 0;
-//		// TODO finish the method.
-//		// TODO Implement tests.
-//		for (int childID : childrenID) {
-//			// TODO Define better method for getting the KPI from the list...
-//			KPI child = main.getkpiData().get(childID);
-//			GridPane childGrid = buildGridPane(child, nextX, nextYs[i]);
-//			treeAnchorPane.setTopAnchor(childGrid, nextYs[i]);
-//			treeAnchorPane.setLeftAnchor(childGrid, nextX);
-//			treeAnchorPane.getChildren().addAll(childGrid);
-//			i++;
-//		}
-	}
-	
-	private double[] calcNextY(int nChildren, double y) {
-		// TODO Auto-generated method stub
-		
 
-		double[] nextYs;
-		
-		
-		return null;
+		buildTree();
+
 	}
 
-	private double calcNextX (double x) {
-		
-		double nextX = x + 180;
-		return nextX;
+	private void buildTree() {
+		for (TreeNode tn : tree) {
+			AnchorPane.setTopAnchor(tn.getGridPane(), tn.getY());
+			AnchorPane.setLeftAnchor(tn.getGridPane(), tn.getX());
+			treeAnchorPane.getChildren().addAll(tn.getGridPane());
+		}
+
 	}
-	
-	
-	
+
+	private void adjustCoordinates() {
+		double minY = 100000.0;
+		double maxY = 0.0;
+		double minX = 100000.0;
+		double maxX = 0.0;
+
+		for (TreeNode tn : tree) {
+			minY = Math.min(minY, tn.getY());
+			maxY = Math.max(maxY, tn.getY());
+			minX = Math.min(minX, tn.getX());
+			maxX = Math.max(maxX, tn.getX());
+		}
+
+		maxY = maxY + 92.0;
+		maxX = maxX + 180;
+		difMInY = 100.0 - minY;
+		paneHeight = RootLayoutController.getInstance().getScrollPane()
+				.getViewportBounds().getHeight();
+		double right = Math.max(maxX, paneWidth);
+		double bottom = Math.max(maxY, paneHeight);
+
+		for (TreeNode tn : tree) {
+			double Y = tn.getY();
+			tn.setY(Y + difMInY);
+
+		}
+
+		// this is a very stupid workaround to make the tree appear where I want
+		// it to be, with paddings.
+		// it happens that the scrollpane is very stubborn
+
+		Label bLabel = new Label("blabel");
+		Label tLabel = new Label("tlabel");
+		bLabel.setVisible(false);
+		tLabel.setVisible(false);
+		AnchorPane.setTopAnchor(bLabel, maxY + difMInY + 100);
+		AnchorPane.setLeftAnchor(bLabel, 5.0);
+		AnchorPane.setTopAnchor(tLabel, 5.0);
+		AnchorPane.setLeftAnchor(tLabel, maxX + 100);
+		treeAnchorPane.getChildren().addAll(bLabel, tLabel);
+
+	}
+
+	private void clearTree(TreeNode treeNode) {
+
+		for (Iterator<TreeNode> it = tree.iterator(); it.hasNext();)
+			if (it.next().getX() > treeNode.getX())
+				it.remove();
+
+	}
 
 }

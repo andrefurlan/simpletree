@@ -2,13 +2,17 @@ package simpletree.model;
 
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Kpi {
 
 	// MANDATORY FIELDS
 	private int id;
 	private String description;
+	private int parent;
 	private Set<Integer> childrenSet;
 	private boolean betterUp;
 	private String unit;
@@ -28,9 +32,11 @@ public class Kpi {
 
 	// TODO Add support accumulated period
 
-	public Kpi(int id, String description, Set<Integer> children, boolean betterUp, String unit) {
+	public Kpi(int id, String description, int parent, Set<Integer> children, boolean betterUp, String unit) {
 		this.id = id;
+		this.parent = parent;
 		this.childrenSet = children;
+		
 		this.description = description;
 		this.betterUp = betterUp;
 		this.unit = unit;
@@ -48,16 +54,14 @@ public class Kpi {
 		this.owner = new String();
 		
 	}
-	
-	public Set<Kpi> getChildrenKpis() {
-		//TODO getChildrenKpis
-		return null;
-
-	}
 
 	
 	public int getId() {
 		return this.id;
+	}
+	
+	public int getParent(){
+		return this.parent;
 	}
 	
 	public boolean getBetterUp() {
@@ -76,7 +80,7 @@ public class Kpi {
 		this.description = description;
 	}
 	
-	public Set<Integer> getChildrenArray(){
+	public Set<Integer> getChildrenSet(){
 		return this.childrenSet;
 	}
 	
@@ -197,5 +201,6 @@ public class Kpi {
 	public void setYearlyActuals(Set<YearlyValue> actuals) {
 		this.yearlyActuals = actuals;
 	}
+
 
 }

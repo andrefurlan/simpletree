@@ -5,21 +5,19 @@
 
 package simpletree;
 
-
 import simpletree.exceptions.FXMLLoadException;
-import simpletree.model.Kpi;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Dialogs;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 
 public class RootLayoutController {
 
 	private ScrollPane scrollPane;
 	private static RootLayoutController instance;
-	private ObservableList<Kpi> kpiData = FXCollections.observableArrayList();
+	
 
 	public RootLayoutController() {
 		instance = this;
@@ -32,6 +30,12 @@ public class RootLayoutController {
 
 	public static RootLayoutController getInstance() {
 		return instance;
+	}
+	
+
+	
+	public ScrollPane getScrollPane(){
+		return scrollPane;
 	}
 
 	@FXML
@@ -47,15 +51,18 @@ public class RootLayoutController {
 	
 	
 	@FXML
-	private void handleChangeTitle() {
+	private void handleSelectPeriod() {
 		Main.getInstance().setPrimaryStageTitle("new title");
+		
+		
 	}
 
+
+	
 	@FXML
 	private void handleImportData() {
 		
 		//TODO datastub...
-		//importDataStub();
 		
 
 		
@@ -78,26 +85,23 @@ public class RootLayoutController {
 		} catch (FXMLLoadException e) {
 			System.out.println(e.getMessage());
 		}
+		BorderPane rootLayoutCenter = (BorderPane) Main.getInstance().getRootLayout().getCenter();
 		
-		Main.getInstance().getRootLayout().setCenter(scrollPane);
+//		Main.getInstance().getRootLayout().setCenter(scrollPane);
+		rootLayoutCenter.setCenter(scrollPane);
+		scrollPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	        @Override
+	        public void handle(MouseEvent e) {
+	            
+//	        	System.out.println("Y: " + e.getY());
+	        	
+	        }
+	    });
 		
-		ScrollPaneController.getInstance().setupHead();
 	}
-	private void importDataStub() {
-		
-//		kpiData.add(new Kpi(0, (new int[] { 1, 2 }), "Opex/Oz"));
-//  		kpiData.add(new Kpi(1, (new int[] {}), "Opex (USD)"));
-//  		kpiData.add(new Kpi(2, (new int[] { 3, 4, 5, 6, 7 }),
-//  				"Equivalent Ounces"));
-//  		kpiData.add(new Kpi(3, (new int[] {}), "Throughtput"));
-//  		kpiData.add(new Kpi(4, (new int[] {}), "Gold Back Grade"));
-//  		kpiData.add(new Kpi(5, (new int[] {}), "Crushing Throughput"));
-//  		kpiData.add(new Kpi(6, (new int[] { 8, 9 }), "Mill Throughput"));
-//  		kpiData.add(new Kpi(7, (new int[] {}), "Global Recovery"));
-//  		kpiData.add(new Kpi(8, (new int[] {}), "Work Index"));
-//  		kpiData.add(new Kpi(9, (new int[] {}), "Availability"));
-	}
+
 	
+
 	private void loadScrollPane() throws FXMLLoadException {
 		
 		String scrollPanePath = "view/TreeScrollPaneLayout.fxml";
@@ -110,6 +114,8 @@ public class RootLayoutController {
 		}
 		
 	}
+	
+
 
 
 	@FXML

@@ -5,9 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="root"
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="simpletree.RootLayoutController">
+<BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="simpletree.RootLayoutController">
 
 	<stylesheets>
 		<URL value="@MainTheme.css" />
@@ -23,15 +21,15 @@
 						<MenuItem mnemonicParsing="false" onAction="#handleSaveData" text="Save Data" />
 					</items>
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleSaveDataAs" text="Save Data" />
+						<MenuItem mnemonicParsing="false" onAction="#handleSaveDataAs" text="Save Data As" />
 					</items>
 					<items>
 						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
 					</items>
 				</Menu>
-				<Menu mnemonicParsing="false" text="Edit">
+				<Menu mnemonicParsing="false" text="Period">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleChangeTitle" text="Change Title" />
+						<MenuItem mnemonicParsing="false" onAction="#handleSelectPeriod" text="Select Period" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">
@@ -42,4 +40,12 @@
 			</menus>
 		</MenuBar>
 	</top>
+<center><BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+<top><ToolBar prefWidth="200.0" BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml">
+  <items>
+    <Button mnemonicParsing="false" text="Button" />
+  </items>
+</ToolBar>
+</top></BorderPane>
+</center>
 </BorderPane>

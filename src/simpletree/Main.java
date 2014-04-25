@@ -22,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application {
 
 	private BorderPane rootLayout;
+	private BorderPane rootLayoutCenter;
 	private Stage primaryStage;
 	private static Main instance;
 	
@@ -36,7 +37,7 @@ public class Main extends Application {
 		
 		this.primaryStage = primaryStage;
 
-		String rootLayoutPath = "view/RootLayout.fxml";
+		
 		loadRootLayout("view/RootLayout.fxml");
 
 		// sets the first scene
@@ -83,6 +84,10 @@ public class Main extends Application {
 		return rootLayout;
 	}
 
+
+	public BorderPane getRootLayoutCenter() {
+		return rootLayoutCenter;
+	}
 
 	/**
 	 * @return the primaryStage
