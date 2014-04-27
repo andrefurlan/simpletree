@@ -17,6 +17,8 @@ import simpletree.model.PeriodOptions;
 import simpletree.model.TreeNode;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -47,6 +49,8 @@ public class ScrollPaneController {
 	@FXML
 	private void initialize() {
 
+
+		
 		// TODO Implement tests.
 		tree = new ArrayList<TreeNode>();
 
@@ -116,8 +120,9 @@ public class ScrollPaneController {
 
 		}
 
+		
 		buildTree();
-
+		System.out.println(tree.size());
 	}
 
 	private void buildTree() {

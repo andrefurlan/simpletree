@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -82,6 +83,7 @@ public class TreeNode {
 		firstRowGrid.add(kpiName, 0, 0);
 		// insert button to deploy tree
 		Button btNext = new Button();
+		btNext.setTooltip(new Tooltip("Click to deploy"));
 		btNext.setId("btNext");
 
 		// defines the action the button will perform
@@ -101,13 +103,13 @@ public class TreeNode {
 	
 	private void deploy(){
 		ScrollPaneController.getInstance().deploy(this);
-		RootLayoutController.getInstance().getScrollPane().setHvalue(1.0);
+//		RootLayoutController.getInstance().getScrollPane().setHvalue(1.0);
 		
 	}
 
 	private GridPane buildValuesGrid(Kpi kpi) {
-		String goalStr = String.valueOf(this.goalValue)+" "+kpi.getUnit();
-		String actualStr = String.valueOf(this.actualValue)+" "+kpi.getUnit();
+		String goalStr = String.valueOf(this.goalValue)+" ("+kpi.getUnit()+")";
+		String actualStr = String.valueOf(this.actualValue)+" ("+kpi.getUnit()+")";
 //		String percDeviationStr = String.valueOf(kpi.getPercDeviation());
 
 		GridPane valuesGrid = new GridPane();

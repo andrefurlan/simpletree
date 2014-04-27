@@ -5,15 +5,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" styleClass="root"
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane id="rootLayout" prefHeight="600.0" prefWidth="800.0"
+	styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="simpletree.RootLayoutController">
 
 	<stylesheets>
 		<URL value="@MainTheme.css" />
 	</stylesheets>
 	<top>
-		<MenuBar BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml">
+		<MenuBar id="rootMenu" BorderPane.alignment="CENTER"
+			xmlns:fx="http://javafx.com/fxml">
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
@@ -35,8 +36,7 @@
 				</Menu>
 				<Menu mnemonicParsing="false" text="Period">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleSelectPeriod"
-							text="Select Period" />
+						<MenuItem mnemonicParsing="false" text="Select Period" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">
@@ -49,14 +49,22 @@
 		</MenuBar>
 	</top>
 	<center>
-		<BorderPane 
-			BorderPane.alignment="CENTER">
+		<BorderPane id="rootLayoutCenter" BorderPane.alignment="CENTER">
 			<top>
-				<ToolBar prefHeight="26.0" prefWidth="800.0"
+				<ToolBar id="rootToolBar" prefHeight="26.0" prefWidth="800.0"
 					BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml">
 					<items>
+						<ComboBox promptText="Select Period" id="periodComboBox"  xmlns:fx="http://javafx.com/fxml" />
+						<Separator orientation="VERTICAL" prefHeight="0.0"
+							prefWidth="1.0" />
+						<SplitMenuButton mnemonicParsing="false" text="SplitMenuButton"
+							xmlns:fx="http://javafx.com/fxml">
+							<items>
+								<MenuItem mnemonicParsing="false" text="Action 1" />
+								<MenuItem mnemonicParsing="false" text="Action 2" />
+							</items>
+						</SplitMenuButton>
 						<Button mnemonicParsing="false" text="Button" />
-						<ComboBox prefWidth="150.0" xmlns:fx="http://javafx.com/fxml" />
 						<DatePicker />
 						<MenuButton mnemonicParsing="false" text="MenuButton"
 							xmlns:fx="http://javafx.com/fxml">
@@ -65,6 +73,7 @@
 								<MenuItem mnemonicParsing="false" text="Action 2" />
 							</items>
 						</MenuButton>
+
 					</items>
 				</ToolBar>
 			</top>

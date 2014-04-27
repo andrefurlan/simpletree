@@ -7,10 +7,21 @@ package simpletree;
 
 import simpletree.exceptions.CSSLoadException;
 import simpletree.exceptions.FXMLLoadException;
+import simpletree.model.PeriodOptions;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 
 
@@ -21,25 +32,55 @@ import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 
-	private BorderPane rootLayout;
-	private BorderPane rootLayoutCenter;
+	
 	private Stage primaryStage;
 	private static Main instance;
+	
+	//RootLayout.fxml elements
+	private BorderPane rootLayout;
+	private MenuBar rootMenu;
+	private BorderPane rootLayoutCenter;
+	private ToolBar rootToolBar;
+	private ScrollPane treeScrollPane;
+	private ComboBox periodComboBox;
+	
+
 	
 	public Main() {
 		instance = this;
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void start(Stage primaryStage) throws FXMLLoadException, CSSLoadException {
 		// TODO Implement tests.
-		
+		System.out.println("main start");	
 		this.primaryStage = primaryStage;
 
-		
-		loadRootLayout("view/RootLayout.fxml");
+		//loads the root layout and defines its components
+		rootLayout = (BorderPane) loadLayout("view/RootLayout.fxml");
 
+		rootMenu = (MenuBar) rootLayout.getTop();
+		rootLayoutCenter = (BorderPane) rootLayout.getCenter();
+		
+		//loads the scroll pane and defines its position
+		treeScrollPane = (ScrollPane) loadLayout("view/TreeScrollPaneLayout.fxml");
+		rootLayoutCenter.setCenter(treeScrollPane);
+		
+		//defines rootLayout components
+		rootToolBar = (ToolBar) rootLayoutCenter.getTop();
+		
+		//defines rootToolBar components
+		periodComboBox = (ComboBox<PeriodOptions>) rootToolBar.getItems().get(0);
+		ObservableList<PeriodOptions> options = 
+			    FXCollections.observableArrayList(PeriodOptions.values());
+		
+		periodComboBox.setItems(options);
+		periodComboBox.setTooltip(new Tooltip("Select the period to analyze"));
+		
+		
+		System.out.println("set scene");	
 		// sets the first scene
 		Scene firstScene = new Scene(rootLayout);
 		String cssPath = "view/MainTheme.css";
@@ -51,20 +92,22 @@ public class Main extends Application {
 		// sets the primaryStage title
 		String title = "Simple Tree Deployment";
 		setPrimaryStageTitle(title);
+		System.out.println("show primary stage");	
 		primaryStage.show();
 	}
 
-	private void loadRootLayout(String path) throws FXMLLoadException {
+	private Node loadLayout(String path) throws FXMLLoadException {
 		// Creates the load object for the root layout and loads the rootLayout
-		
-		FXMLLoader rootLoader = new FXMLLoader(getClass().getResource(
+		System.out.println("load rootlayout");	
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(
 				path));
 		try {
-			this.rootLayout = rootLoader.load();
+			return loader.load();
 		} catch (Exception e) {
 			throw new FXMLLoadException("Failed to load the file: " + path);
+		} finally{
+		System.out.println("finish load rootlayout");	
 		}
-		
 	}
 
 
@@ -74,6 +117,7 @@ public class Main extends Application {
 	 */
 	public static void main(String[] args) {
 		launch(args);
+		System.out.println("main");	
 	}
 	
 	
