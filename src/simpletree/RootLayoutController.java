@@ -56,13 +56,12 @@ public class RootLayoutController {
 	
 	@FXML
 	private void handleSelectPeriod() {
-		Main.getInstance().setPrimaryStageTitle("new title");
+
 	}
 
 	
 	@FXML
 	private void handleImportData() {
-		
 		
 	}
 

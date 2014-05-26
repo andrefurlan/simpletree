@@ -51,7 +51,7 @@ public class Main extends Application {
 	}
 
 	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public void start(Stage primaryStage) throws FXMLLoadException, CSSLoadException {
 		// TODO Implement tests.
@@ -128,6 +128,17 @@ public class Main extends Application {
 		return rootLayout;
 	}
 
+	public ScrollPane getTreeScrollPane(){
+		return treeScrollPane;
+	}
+	
+	public MenuBar getRootMenu() {
+		return rootMenu;
+	}
+	
+	public ComboBox<PeriodOptions> getPeriodComboBox(){
+		return periodComboBox;
+	}
 
 	public BorderPane getRootLayoutCenter() {
 		return rootLayoutCenter;

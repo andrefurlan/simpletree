@@ -5,27 +5,16 @@
 
 package simpletree;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
 import simpletree.model.Kpi;
 import simpletree.model.KpiData;
 import simpletree.model.PeriodOptions;
 import simpletree.model.TreeNode;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 
 public class ScrollPaneController {
@@ -50,32 +39,18 @@ public class ScrollPaneController {
 	private void initialize() {
 
 
-		
 		// TODO Implement tests.
-		tree = new ArrayList<TreeNode>();
+		tree = new LinkedList<TreeNode>();
 
 		// TODO delete stub later
 		data = new KpiData();
 		setupHead();
 		// TODO Implement tests for initialize in TreeScrollPaneLayoutController
 
-
+		
 	}
 
-	/**
-	 * @return the instance
-	 */
-	public static ScrollPaneController getInstance() {
-		return instance;
-	}
 
-	public void setPeriodSelection(PeriodOptions selection) {
-		this.periodSelection = selection;
-	}
-
-	public PeriodOptions getPeriodSelection() {
-		return this.periodSelection;
-	}
 
 	public void setupHead() {
 		// TODO Implement tests.
@@ -83,9 +58,11 @@ public class ScrollPaneController {
 		// TODO implement a way to find the head based on the relationship
 		// between the kpis
 
+		
 		TreeNode head = new TreeNode(data.getHead());
-		head.setX(startX);
+		//head.setX(Main.getInstance().getTreeScrollPane().getHeight());
 		head.setY(startY);
+		head.setX(startX);
 		tree.add(head);
 		buildTree();
 
@@ -150,8 +127,8 @@ public class ScrollPaneController {
 		maxY = maxY + 92.0;
 		maxX = maxX + 180;
 		difMInY = 100.0 - minY;
-		paneHeight = RootLayoutController.getInstance().getScrollPane()
-				.getViewportBounds().getHeight();
+		System.out.println(Main.getInstance().getTreeScrollPane().getHeight());
+		paneHeight = Main.getInstance().getTreeScrollPane().getViewportBounds().getHeight();
 		double right = Math.max(maxX, paneWidth);
 		double bottom = Math.max(maxY, paneHeight);
 
@@ -185,4 +162,21 @@ public class ScrollPaneController {
 
 	}
 
+	//*****************GETTERS****************
+	
+	/**
+	 * @return the instance
+	 */
+	public static ScrollPaneController getInstance() {
+		return instance;
+	}
+
+	public void setPeriodSelection(PeriodOptions selection) {
+		this.periodSelection = selection;
+	}
+
+	public PeriodOptions getPeriodSelection() {
+		return this.periodSelection;
+	}
+	
 }
